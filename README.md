@@ -26,14 +26,14 @@ If you do not have, [Install](https://docs.docker.com/get-started/) here.
 - When you want to execute a normal django command, but targeted at a specific schema, use the `tenant_command`. E.g To load data for *customer1* schema. 
 ``./manage.py tenant_command loaddata --schema=customer1``.
 - List tenants: 
-    ```
+    ```bash
     for t in $(./manage.py list_tenants | cut -f1);
     do
         ./manage.py tenant_command dumpdata --schema=$t --indent=2 auth.user > ${t}_users.json;
     done    
     ```
 - Perform tenant post save actions:
-    ```
+    ```python
     from tenant_schemas.signals import post_schema_sync
     from tenant_schemas.models import TenantMixin
     
