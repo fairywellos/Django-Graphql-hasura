@@ -3,11 +3,13 @@
 
 This short doc assumes you have docker installed on your computer.
 If you do not have, [Install](https://docs.docker.com/get-started/) here.
+The project runs on Postgres only because of the multi-tenancy strategy.
 
 **Compulsory environmental variables**
-* HASURA_SAAS_DATABASE: *This is the postgres database name you want to you, assumes you have the database created.*
-* HASURA_SAAS_USER: *This is the postgres user name.*
-* HASURA_SAAS_PASSWORD: *This is the postgres user password*
+* HASURA_SAAS_DATABASE: *This is the postgres database name you want to you, assumes you have the database created.  It defaults to 'hasura_saas'.*
+* HASURA_SAAS_USER: *This is the postgres user name.  It defaults to 'postgres'.*
+* HASURA_SAAS_PASSWORD: *This is the postgres user password.  It defaults to 'postgres'.*
+* MAIN_DOMAIN_URL: *This is required to register the public schema on first run. It defaults to 'localhost'.*
 
 
 **Steps to run**

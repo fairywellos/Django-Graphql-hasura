@@ -1,19 +1,27 @@
-SHARED_APPS = [
-    'tenant_schemas',
-    'clients',
-]  # Just to make sure I remember what I'm doing in the next 2hrs, lol. These apps are synced to the public schema ONLY
+import os
 
-TENANT_APPS = [
+COMMON_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'users',
     'rest_framework',
     'corsheaders',
-    'users',
-]  # These ones are synced to the individual schemas (ALL), it will be applied to public anyways
+]  # Apps we want on the public schema and other schemas too
+
+SHARED_APPS = [
+    'tenant_schemas',
+    'clients',
+    *COMMON_APPS
+]  # Just to make sure I remember what I'm doing in the next 2hrs, lol. These apps are synced to the public schema ONLY
+
+TENANT_APPS = [
+    *COMMON_APPS,
+
+]  # These ones are synced to the individual schemas (ALL)
 
 DATABASE_ROUTERS = (
     'tenant_schemas.routers.TenantSyncRouter',
@@ -27,3 +35,4 @@ DEFAULT_FILE_STORAGE = 'tenant_schemas.storage.TenantFileSystemStorage'
 
 TENANT_LIMIT_SET_CALLS = True
 PUBLIC_SCHEMA_URLCONF = 'django_hasura.urls_public'
+MAIN_DOMAIN_URL = os.getenv('MAIN_DOMAIN_URL', 'localhost')

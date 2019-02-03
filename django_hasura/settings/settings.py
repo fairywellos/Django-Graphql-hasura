@@ -29,7 +29,11 @@ ALLOWED_HOSTS = ['*']
 
 # Application definition
 
-INSTALLED_APPS = [*SHARED_APPS, *TENANT_APPS]
+INSTALLED_APPS = [
+    'tenant_schemas',
+    'clients',
+    *TENANT_APPS
+]
 
 CORS_ORIGIN_ALLOW_ALL = True
 
