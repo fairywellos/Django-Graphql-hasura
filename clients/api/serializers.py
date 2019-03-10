@@ -1,9 +1,9 @@
 from rest_framework import serializers
 
-from clients.models import Tenant
+from clients.models import Client
 
 
 class TenantSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Tenant
+        model = Client
         fields = '__all__'

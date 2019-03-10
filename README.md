@@ -10,7 +10,9 @@ The project runs on Postgres only because of the multi-tenancy strategy.
 * HASURA_SAAS_USER: *This is the postgres user name.  It defaults to 'postgres'.*
 * HASURA_SAAS_PASSWORD: *This is the postgres user password.  It defaults to 'postgres'.*
 * MAIN_DOMAIN_URL: *This is required to register the public schema on first run. It defaults to 'localhost'.*
-
+* HASURA_SAAS_AUTH_WEBHOOK: *webhook URL for hasura to perform authentication on requests, this URL should just carry the auth server path,
+like this ``/api/v1/users/webhook/auth/`` without the domain, since the hasura engine and the django application which serves as the auth server all run on the same machine, in a case where the django application runs on a specific port, then this 
+url will be like ``:8000/api/v1/users/webhook/auth/`` where `8000` is the port number*.
 
 **Steps to run**
 -----

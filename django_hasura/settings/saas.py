@@ -15,6 +15,7 @@ COMMON_APPS = [
 SHARED_APPS = [
     'tenant_schemas',
     'clients',
+    'hasura',
     *COMMON_APPS
 ]  # Just to make sure I remember what I'm doing in the next 2hrs, lol. These apps are synced to the public schema ONLY
 
@@ -36,3 +37,5 @@ DEFAULT_FILE_STORAGE = 'tenant_schemas.storage.TenantFileSystemStorage'
 TENANT_LIMIT_SET_CALLS = True
 PUBLIC_SCHEMA_URLCONF = 'django_hasura.urls_public'
 MAIN_DOMAIN_URL = os.getenv('MAIN_DOMAIN_URL', 'localhost')
+
+HASURA_URL = os.getenv('HASURA_URL', 'http://localhost:8080')
