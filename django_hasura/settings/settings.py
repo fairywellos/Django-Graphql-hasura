@@ -14,7 +14,6 @@ import os
 from datetime import timedelta
 
 from django_hasura.settings.saas import *
-from django_hasura.settings.hasura import *
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -156,4 +155,26 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
     'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
+}
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'filters': {
+        'tenant_context': {
+            '()': 'tenant_schemas.log.TenantContextFilter'
+        },
+    },
+    'formatters': {
+        'tenant_formatter': {
+            'format': '[%(schema_name)s:%(domain_url)s] '
+                      '%(levelname)-7s %(asctime)s %(message)s',
+        },
+    },
+    'handlers': {
+        'console': {
+            'filters': ['tenant_context'],
+            'class': 'logging.StreamHandler',
+        },
+    },
 }

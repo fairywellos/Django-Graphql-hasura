@@ -12,8 +12,6 @@ class UserSerializer(serializers.ModelSerializer):
             'is_tenant',
             'password',
             'email',
-            'is_active',
-            'is_superuser'
         )
         extra_kwargs = {
             'password': {
@@ -30,4 +28,4 @@ class UserSerializer(serializers.ModelSerializer):
         return attrs
 
     def create(self, validated_data):
-        return User.objects.create_user(**validated_data)
+        return User.objects.create_user(**validated_data, is_active=True)

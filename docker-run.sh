@@ -4,4 +4,5 @@ docker run -d -p 8080:8080 \
   -e HASURA_GRAPHQL_ENABLE_CONSOLE=true \
   -e HASURA_GRAPHQL_ACCESS_KEY="${HASURA_SAAS_ACCESS_KEY}" \
   -e HASURA_GRAPHQL_AUTH_HOOK=http://@host.docker.internal${HASURA_SAAS_AUTH_WEBHOOK} \
+  -e HASURA_GRAPHQL_UNAUTHORIZED_ROLE=anonymous \
   hasura/graphql-engine:latest

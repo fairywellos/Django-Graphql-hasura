@@ -10,9 +10,15 @@ class User(AbstractUser):
                                                              'tenant under the main')
     REQUIRED_FIELDS = []
 
+    class Hasura:
+        track = True
+
 
 class UserProxy(User):
     """Create methods and functions over the user model here"""
 
     class Meta:
+        verbose_name = 'User'
+        verbose_name_plural = 'Users'
         proxy = True
+

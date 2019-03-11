@@ -39,3 +39,4 @@ PUBLIC_SCHEMA_URLCONF = 'django_hasura.urls_public'
 MAIN_DOMAIN_URL = os.getenv('MAIN_DOMAIN_URL', 'localhost')
 
 HASURA_URL = os.getenv('HASURA_URL', 'http://localhost:8080')
+HASURA_SAAS_ACCESS_KEY = os.getenv('HASURA_SAAS_ACCESS_KEY', 'mybigsecret')
