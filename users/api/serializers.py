@@ -10,7 +10,6 @@ class UserSerializer(serializers.ModelSerializer):
             'first_name',
             'last_name',
             'is_tenant',
-            'subdomain',
             'password',
             'email',
             'is_active',
@@ -25,9 +24,9 @@ class UserSerializer(serializers.ModelSerializer):
     def validate(self, attrs):
         super(UserSerializer, self).validate(attrs)
         is_tenant = attrs.get('is_tenant', None)
-        subdomain = attrs.get('subdomain', None)
-        if is_tenant and not subdomain:
-            raise serializers.ValidationError({'subdomain': ['This field is required if user is a tenant.']})
+        username = attrs.get('username', None)
+        if is_tenant and not username:
+            raise serializers.ValidationError({'username': ['This field is required if user is a tenant.']})
         return attrs
 
     def create(self, validated_data):
