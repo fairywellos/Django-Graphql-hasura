@@ -1,11 +1,8 @@
 import random
 import string
 
-import requests
 from django.conf import settings
 from django.db.models.signals import post_save
-from tenant_schemas.models import TenantMixin
-from tenant_schemas.signals import post_schema_sync
 
 from users.models import UserProxy
 
@@ -24,8 +21,4 @@ def create_tenant(sender, instance, **kwargs):
         tenant.save()
 
 
-def hasura_auto_track_table(sender, instance, **kwargs):
-    response = requests.post(f'{settings.HASURA_URL}/v1/query')
-
 post_save.connect(create_tenant, UserProxy)
-post_schema_sync.connect(hasura_auto_track_table, TenantMixin)

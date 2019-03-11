@@ -20,6 +20,20 @@ url will be like ``:8000/api/v1/users/webhook/auth/`` where `8000` is the port n
 * **Run django project:** ``python manage.py runserver``
 * **Run Docker container to spin up hasura: ``./docker-run.sh``.**
 *If you get a permission error trying to run the bash file. * Run ``chmod u+x docker-run.sh``
+* By default, graphql API is accessible at `http://<domain>:8080/v1alpha1/graphql`
+* You can also register an account on the django app at endpoint `/api/v1/users/` on any of the domains, endpoint collects payload
+```json
+    {
+        "username": "test",
+        "first_name": "Test",
+        "last_name": "Test",
+        "is_tenant": true,
+        "password": "mostsecure",
+        "subdomain": "test",
+        "email": "test@localhost.com",
+        "is_superuser": true
+    }
+```
 
 
 

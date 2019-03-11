@@ -12,7 +12,7 @@ class SAASMiddleware(DefaultTenantMiddleware):
     def process_request(self, request):
         super().process_request(request)
         webhook_url = os.getenv('HASURA_SAAS_AUTH_WEBHOOK', '/hasura/webhook/auth/')
-        if webhook_url and request.path in webhook_url:
+        if webhook_url and webhook_url in request.build_absolute_uri():
             meta = request.META
             schema_from_header = meta.get('X-HASURA-TARGET-SCHEMA', meta.get('HTTP_X_HASURA_TARGET_SCHEMA', None))
             if not schema_from_header:

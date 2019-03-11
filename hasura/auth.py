@@ -16,8 +16,6 @@ class HasuraWebHookAuth(APIView):
             if user.is_staff:
                 user_role = HasuraRoles.ADMIN
         resp = AuthResponse(user_id=user.id, role=user_role)
-        print(resp.data)
-        print(user)
         return resp
 
     def post(self, request):

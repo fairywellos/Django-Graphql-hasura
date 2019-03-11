@@ -12,11 +12,11 @@ class Hasura:
             import requests
         except ImportError:
             raise ImportError('\'requests\' package is required for this module, try running "pip install requests"')
-        self.url = self.domain + '/v1/query/'
+        self.url = self.domain + '/v1/query'
 
     def _request(self, url, method, data, headers):
         method = getattr(requests, str(method).lower())
-        response = method(url=url, json=json.dumps(data), headers=headers)
+        response = method(url=url, data=json.dumps(data), headers=headers)
         return response.json()
 
     def request(self, method='POST', data=None, headers=None):
