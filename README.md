@@ -20,7 +20,6 @@ url will be like ``:8000/api/v1/users/webhook/auth/`` where `8000` is the port n
 * **Run django project:** ``python manage.py runserver``
 * **Run Docker container to spin up hasura: ``./docker-run.sh``.**
 *If you get a permission error trying to run the bash file. * Run ``chmod u+x docker-run.sh``
-* By default, graphql API is accessible at `http://<domain>:8080/v1alpha1/graphql`
 * You can also register an account on the django app at endpoint `/api/v1/users/` on any of the domains, endpoint collects payload
 ```json
     {
@@ -29,12 +28,97 @@ url will be like ``:8000/api/v1/users/webhook/auth/`` where `8000` is the port n
         "last_name": "Test",
         "is_tenant": true,
         "password": "mostsecure",
-        "subdomain": "test",
         "email": "test@localhost.com",
         "is_superuser": true
     }
 ```
+The `is_tenant` attribute is only effective when you are sending the API request to `/api/v1/users/token/`
+the main domain. When this is true, it creates a sub-domain for the user being created.
+* To get JWT for authentication, POST `{email: <email_address>, password: <password>}` to 
+* By default, graphql API is accessible at `http://<domain>:8080/v1alpha1/graphql` and fully protected
+by webhook authorization, whenever you want to access data in the graphql API, add `X-HASURA-TARGET-SCHEMA` as an header to your request alongide your token, this helps the django application
+authenticate the requesting user in the correct domain because by default, all authorization requests from
+hasura are sent to the main domain, then the main domain handles appropriately. This header `X-HASURA-TARGET-SCHEMA` defaults to `public`.
+* The hasura console is available at
+`http://<domain>:8080`. You can change this in the `docker-run.sh` file.
 
+
+**Sample Procedure of a request to the graphQL API**
+--
+Assuming our django server runs at `localhost:8000` and hasura runs at `localhost:8080`
+* Sign Up:
+Send request to `localhost:8000/api/v1/users/`, payload: 
+```json
+    {
+        "username": "admin",
+        "first_name": "Administrator",
+        "last_name": "LastName",
+        "is_tenant": true,
+        "password": "mostsecure",
+        "email": "admin@localhost.com",
+        "is_superuser": true
+    }
+```
+This signs me up to the main domain `localhost:8000` and creates a subdomain for me that resolves to
+`admin.localhost:8000`.
+* To get our token: we send a post request to `localhost:8000/api/v1/users/token/` with payload
+```json
+{
+  "password": "mostsecure",
+  "email": "admin@localhost.com",
+}
+```
+We get a response looking like this:
+```json
+{
+  "refresh": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTU1MjQzNzMyNiwianRpIjoiMDg3MWY2MjhjYTlhNGM2NWJlNzk1YmU0ZTYwNzAyN2MiLCJ1c2VyX2lkIjoyfQ.QT_roC2-APBfKA4rauNT38u4MwL76X4C05hBPm6hRrc",
+  "access": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNTUyMzUwOTI2LCJqdGkiOiI3YzJjYWFmMWQ4OWE0NjQ3OGZlZWZlODljNTg1YjFkMSIsInVzZXJfaWQiOjJ9.faA5LWqb9TSSAoke7pyz9IGg_RZSTYusoWxfXWXaqak"
+}
+```
+
+* Finally, when we try to send requests to our graph API at `localhost:8080/v1alpha/graphql/`. We add headers:
+```
+X-HASURA-TARGET-SCHEMA=public
+Authorization=Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNTUyMzUwOTI2LCJqdGkiOiI3YzJjYWFmMWQ4OWE0NjQ3OGZlZWZlODljNTg1YjFkMSIsInVzZXJfaWQiOjJ9.faA5LWqb9TSSAoke7pyz9IGg_RZSTYusoWxfXWXaqak 
+```
+
+Request Data:
+```graphql
+query {
+  users_user {
+    id
+    first_name
+  }
+}
+```
+
+Response:
+```json
+{
+  "data": {
+    "users_user": [
+      {
+        "id": 2,
+        "first_name": "Test"
+      }
+    ]
+  }
+}
+```
+When we remove the Authorization header:
+```json
+{
+  "errors": [
+    {
+      "extensions": {
+        "path": "$",
+        "code": "access-denied"
+      },
+      "message": "Authentication hook unauthorized this request"
+    }
+  ]
+}
+```
 
 
 **Other useful commands*
