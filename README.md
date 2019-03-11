@@ -32,9 +32,9 @@ url will be like ``:8000/api/v1/users/webhook/auth/`` where `8000` is the port n
         "is_superuser": true
     }
 ```
-The `is_tenant` attribute is only effective when you are sending the API request to `/api/v1/users/token/`
+The `is_tenant` attribute is only effective when you are sending the API request to
 the main domain. When this is true, it creates a sub-domain for the user being created.
-* To get JWT for authentication, POST `{email: <email_address>, password: <password>}` to 
+* To get JWT for authentication, POST `{email: <email_address>, password: <password>}` to `/api/v1/users/token/`
 * By default, graphql API is accessible at `http://<domain>:8080/v1alpha1/graphql` and fully protected
 by webhook authorization, whenever you want to access data in the graphql API, add `X-HASURA-TARGET-SCHEMA` as an header to your request alongide your token, this helps the django application
 authenticate the requesting user in the correct domain because by default, all authorization requests from
