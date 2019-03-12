@@ -79,9 +79,6 @@ WSGI_APPLICATION = 'django_hasura.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'tenant_schemas.postgresql_backend',
-        'NAME': os.getenv('HASURA_SAAS_DATABASE', 'hasura_saas'),
-        'USER': os.getenv('HASURA_SAAS_USER', 'postgres'),
-        'PASSWORD': os.getenv('HASURA_SAAS_PASSWORD', 'postgres')
     }
 }
 
@@ -121,7 +118,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
-STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, '..', 'static')
 
 AUTH_USER_MODEL = 'users.User'
 
@@ -178,3 +175,15 @@ LOGGING = {
         },
     },
 }
+
+IS_GAE = os.getenv('GAE_APPLICATION', None)
+
+GOOGLE_APPLICATION_CREDENTIALS = os.path.join(BASE_DIR, 'django-saas-232009-6eb4dda18f7d.json')
+os.environ.setdefault("GOOGLE_APPLICATION_CREDENTIALS", GOOGLE_APPLICATION_CREDENTIALS)
+
+DATABASES['default']['NAME'] = os.getenv('HASURA_SAAS_DATABASE', 'django-saas')
+DATABASES['default']['USER'] = os.getenv('HASURA_SAAS_USER', 'django-saas')
+DATABASES['default']['PASSWORD'] = os.getenv('HASURA_SAAS_PASSWORD', 'r1zEAflGfKLl1Fb3')
+DATABASES['default']['HOST'] = os.getenv('HASURA_SAAS_HOST', '127.0.0.1')
+DATABASES['default']['PORT'] = os.getenv('HASURA_SAAS_PORT', '5433')
+

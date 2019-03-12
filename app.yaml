@@ -1,0 +1,36 @@
+runtime: python37
+entrypoint: gunicorn -b :$PORT django_hasura.wsgi
+env: standard
+
+handlers:
+- url: /static
+  static_dir: static/
+
+- url: /.*
+  script: auto
+
+env_variables:
+  DJANGO_SETTINGS_MODULE: 'django_hasura.settings'
+
+  DEBUG_ENABLED: 'True'
+  DEVELOPMENT_MODE: 'True'
+
+  PROJECT_ID: 'django-saas-232009'
+  GAE_APPLICATION: 'True'
+
+  HASURA_SAAS_HOST: '/cloudsql/django-saas-232009:us-central1:django-saas'
+  HASURA_SAAS_DATABASE: 'django-saas'
+  HASURA_SAAS_USER: 'django-saas'
+  HASURA_SAAS_PASSWORD: 'r1zEAflGfKLl1Fb3'
+  HASURA_SAAS_PORT: '5432'
+
+runtime_config:
+  python_version: 3
+
+manual_scaling:
+  instances: 1
+
+resources:
+  cpu: 1
+  memory_gb: 0.6
+  disk_size_gb: 10

@@ -1,3 +1,4 @@
+gunicorn
 aniso8601==3.0.2
 certifi==2019.3.9
 chardet==3.0.4

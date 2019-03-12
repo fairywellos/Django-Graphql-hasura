@@ -147,3 +147,5 @@ When we remove the Authorization header:
     post_schema_sync.connect(foo_bar, sender=TenantMixin)
     ```
 We'd find more [here](https://django-tenant-schemas.readthedocs.io/en/latest/use.html)
+
+http://35.224.162.126

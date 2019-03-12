@@ -8,7 +8,7 @@ class User(AbstractUser):
     email = models.EmailField(_('email address'), unique=True)
     is_tenant = models.BooleanField(default=False, help_text='When this is true at creation time, this user becomes a '
                                                              'tenant under the main')
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ['username']
 
     class Hasura:
         track = True

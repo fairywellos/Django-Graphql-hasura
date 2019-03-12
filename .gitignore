@@ -54,3 +54,8 @@ venv/
 
 # Pytest cache
 .pytest_cache/
+
+static/rest_framework/
+static/admin/
+
+sql-proxy.sh
