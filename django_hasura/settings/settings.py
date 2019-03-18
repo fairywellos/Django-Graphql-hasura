@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'tenant_schemas',
     'clients',
     'hasura',
+    'django_cloud_tasks',
     *TENANT_APPS
 ]
 
