@@ -11,8 +11,8 @@ The project runs on Postgres only because of the multi-tenancy strategy.
 * HASURA_SAAS_PASSWORD: *This is the postgres user password.  It defaults to 'postgres'.*
 * MAIN_DOMAIN_URL: *This is required to register the public schema on first run. It defaults to 'localhost'.*
 * HASURA_SAAS_AUTH_WEBHOOK: *webhook URL for hasura to perform authentication on requests, this URL should just carry the auth server path,
-like this ``/api/v1/users/webhook/auth/`` without the domain, since the hasura engine and the django application which serves as the auth server all run on the same machine, in a case where the django application runs on a specific port, then this 
-url will be like ``:8000/api/v1/users/webhook/auth/`` where `8000` is the port number*.
+like this ``/api/v1/users/webhook/auth/`` without the domain*.
+
 
 **Steps to run**
 -----
@@ -120,6 +120,31 @@ When we remove the Authorization header:
 }
 ```
 
+**Auto tracking postgres table for new sub-domains**
+--
+If you wish to track specific table automatically. You can define a subclass under 
+such model named 'Hasura' and set track attribute to True such as example below.
+
+```python
+class User(Model):
+    ...
+    
+    class Hasura:
+        track = True
+
+```
+
+This model named 'User' is automatically tracked for new domains.
+NOTE: It requires you settings `HASURA_URL` attribute in the project settings.
+Sample:
+`file: settings.py`
+```python
+...
+
+HASURA_URL = '45.93.135.102:8000'
+
+...
+```
 
 **Other useful commands*
 --
@@ -148,4 +173,3 @@ When we remove the Authorization header:
     ```
 We'd find more [here](https://django-tenant-schemas.readthedocs.io/en/latest/use.html)
 
-http://35.224.162.126

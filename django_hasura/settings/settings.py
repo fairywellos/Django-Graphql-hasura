@@ -10,10 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
-import os
 from datetime import timedelta
 
 from django_hasura.settings.saas import *
+from django_hasura.settings.cloud_tasks import *
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -159,20 +159,37 @@ LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse'
+        },
         'tenant_context': {
             '()': 'tenant_schemas.log.TenantContextFilter'
         },
     },
     'formatters': {
-        'tenant_formatter': {
+        'simple': {
+            'format': '%(levelname)-7s %(asctime)s %(message)s',
+        },
+        'tenant_context': {
             'format': '[%(schema_name)s:%(domain_url)s] '
                       '%(levelname)-7s %(asctime)s %(message)s',
         },
     },
     'handlers': {
+        'null': {
+            'class': 'logging.NullHandler',
+        },
         'console': {
-            'filters': ['tenant_context'],
             'class': 'logging.StreamHandler',
+            'filters': ['tenant_context'],
+            'formatter': 'tenant_context',
+        },
+    },
+    'loggers': {
+        '': {
+            'handlers': ['null'],
+            'level': 'DEBUG',
+            'propagate': True,
         },
     },
 }
@@ -182,9 +199,9 @@ IS_GAE = os.getenv('GAE_APPLICATION', None)
 GOOGLE_APPLICATION_CREDENTIALS = os.path.join(BASE_DIR, 'django-saas-232009-6eb4dda18f7d.json')
 os.environ.setdefault("GOOGLE_APPLICATION_CREDENTIALS", GOOGLE_APPLICATION_CREDENTIALS)
 
+
 DATABASES['default']['NAME'] = os.getenv('HASURA_SAAS_DATABASE', 'django-saas')
 DATABASES['default']['USER'] = os.getenv('HASURA_SAAS_USER', 'django-saas')
 DATABASES['default']['PASSWORD'] = os.getenv('HASURA_SAAS_PASSWORD', 'r1zEAflGfKLl1Fb3')
 DATABASES['default']['HOST'] = os.getenv('HASURA_SAAS_HOST', '127.0.0.1')
-DATABASES['default']['PORT'] = os.getenv('HASURA_SAAS_PORT', '5433')
-
+DATABASES['default']['PORT'] = os.getenv('HASURA_SAAS_PORT', '5432')

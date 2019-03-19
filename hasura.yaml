@@ -24,12 +24,16 @@ spec:
           command:
             - graphql-engine
             - --database-url
-            - "postgres://$(POSTGRES_DB_USER):$(POSTGRES_DB_PASSWORD)@$(POSTGRES_DB_HOST)/postgres"
+            - "postgres://$(POSTGRES_DB_USER):$(POSTGRES_DB_PASSWORD)@$(POSTGRES_DB_HOST)/$(POSTGRES_DB_NAME)"
             - serve
           env:
             # [START Hasura config variables]
             - name: HASURA_GRAPHQL_ENABLE_CONSOLE
               value: "true"
+            - name: HASURA_GRAPHQL_AUTH_HOOK
+              value: "https://django-saas-232009.appspot.com/hasura/webhook/auth/"
+            - name: HASURA_GRAPHQL_ACCESS_KEY
+              value: "mybigsecret"
             # [END Hasura config variables]
             - name: POSTGRES_DB_HOST
               value: 127.0.0.1:5432
@@ -44,6 +48,8 @@ spec:
                 secretKeyRef:
                   name: cloudsql-db-credentials
                   key: password
+            - name: POSTGRES_DB_NAME
+              value: "django-saas"
             # [END cloudsql_secrets]
         # Change [INSTANCE_CONNECTION_NAME] here to include your GCP
         # project, the region of your Cloud SQL instance and the name
