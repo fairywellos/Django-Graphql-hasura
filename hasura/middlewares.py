@@ -17,6 +17,7 @@ class SAASMiddleware(DefaultTenantMiddleware):
     we specify the sub-domain through the request header 'X-HASURA-TARGET-SCHEMA',
     for example X-HASURA-TARGET-SCHEMA=public
     """
+
     def process_hasura_webhook_auth(self, request):
         meta = request.META
         schema_from_header = meta.get('X-HASURA-TARGET-SCHEMA', meta.get('HTTP_X_HASURA_TARGET_SCHEMA',
