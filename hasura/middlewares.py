@@ -38,6 +38,8 @@ class SAASMiddleware(DefaultTenantMiddleware):
 
     def get_tenant(self, model, hostname, request):
         try:
+            """In case we are running in a docker container within same machine"""
+            hostname = hostname.replace('host.docker.internal', 'localhost')
             return super(DefaultTenantMiddleware, self).get_tenant(model, hostname, request)
         except model.DoesNotExist:
             raise Http404('Sub-domain requested does not exist')

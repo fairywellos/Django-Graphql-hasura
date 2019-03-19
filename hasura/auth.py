@@ -1,6 +1,7 @@
 from rest_framework import status
 from rest_framework.permissions import AllowAny
 from rest_framework.views import APIView
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from hasura.roles import HasuraRoles
 from hasura.utils import AuthResponse
@@ -8,6 +9,7 @@ from hasura.utils import AuthResponse
 
 class HasuraWebHookAuth(APIView):
     permission_classes = (AllowAny,)
+    authentication_classes = (JWTAuthentication,)
 
     def handle_auth(self):
         user = self.request.user
