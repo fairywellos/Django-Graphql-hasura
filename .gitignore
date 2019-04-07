@@ -59,3 +59,5 @@ static/rest_framework/
 static/admin/
 
 sql-proxy.sh
+
+django-saas-*.json
