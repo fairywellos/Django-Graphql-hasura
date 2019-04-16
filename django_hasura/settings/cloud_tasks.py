@@ -1,7 +1,7 @@
 import os
 
 DJANGO_CLOUD_TASKS = {
-    'project_location_name': 'projects/django-saas-232009/locations/us-central1',
+    'project_location_name': 'projects/django-saas-237719/locations/us-central1',
     'task_handler_root_url': '/_tasks/'
 }
 

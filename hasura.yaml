@@ -31,7 +31,7 @@ spec:
             - name: HASURA_GRAPHQL_ENABLE_CONSOLE
               value: "true"
             - name: HASURA_GRAPHQL_AUTH_HOOK
-              value: "https://django-saas-232009.appspot.com/hasura/webhook/auth/"
+              value: "https://django-saas-237719.appspot.com/hasura/webhook/auth/"
             - name: HASURA_GRAPHQL_ACCESS_KEY
               value: "mybigsecret"
             # [END Hasura config variables]
@@ -59,7 +59,7 @@ spec:
         - name: cloudsql-proxy
           image: gcr.io/cloudsql-docker/gce-proxy:1.11
           command: ["/cloud_sql_proxy",
-                    "-instances=django-saas-232009:us-central1:django-saas=tcp:5432",
+                    "-instances=django-saas-237719:us-central1:django-saas=tcp:5432",
                     "-credential_file=/secrets/cloudsql/credentials.json"]
           # [START cloudsql_security_context]
           securityContext:

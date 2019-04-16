@@ -58,6 +58,7 @@ venv/
 static/rest_framework/
 static/admin/
 
-sql-proxy.sh
+sql_proxy.sh
 
 django-saas-*.json
+cloud_sql_proxy.sh

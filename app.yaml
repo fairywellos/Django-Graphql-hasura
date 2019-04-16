@@ -15,19 +15,19 @@ env_variables:
   DEBUG_ENABLED: 'True'
   DEVELOPMENT_MODE: 'True'
 
-  PROJECT_ID: 'django-saas-232009'
+  PROJECT_ID: 'django-saas-237719'
   GAE_APPLICATION: 'True'
 
-  HASURA_SAAS_HOST: '/cloudsql/django-saas-232009:us-central1:django-saas'
+  HASURA_SAAS_HOST: '/cloudsql/django-saas-237719:us-central1:django-saas'
   HASURA_SAAS_DATABASE: 'django-saas'
   HASURA_SAAS_USER: 'django-saas'
   HASURA_SAAS_PASSWORD: 'r1zEAflGfKLl1Fb3'
   HASURA_SAAS_PORT: '5432'
 
-  HASURA_URL: 'http://35.224.162.126'
+  HASURA_URL: 'http://35.200.242.129'
   HASURA_SAAS_ACCESS_KEY: 'mybigsecret'
 
-  MAIN_DOMAIN_URL: 'django-saas-232009.appspot.com'
+  MAIN_DOMAIN_URL: 'django-saas-237719.appspot.com'
   # REMEMBER: THIS IS SUBJECT TO CHANGE ONCE WE ADD A DOMAIN NAME
 
 runtime_config:
