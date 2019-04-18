@@ -1,8 +1,11 @@
 from django.contrib import admin
 from django.urls import path, include
 from django_cloud_tasks import urls as dct_urls
+from rest_framework_swagger.views import get_swagger_view
 
 from clients.views import HomePageView
+
+schema_view = get_swagger_view(title='Django SAAS API')
 
 api_patterns = [
     path('clients/', include('clients.api.urls')),
@@ -11,7 +14,7 @@ api_patterns = [
 
 urlpatterns = [
     path('', HomePageView.as_view()),
-    path('docs/', include('rest_framework_docs.urls')),
+    path('docs/', schema_view),
     path('admin/', admin.site.urls),
     path('hasura/', include('hasura.urls')),
     path('api/v1/', include(api_patterns)),

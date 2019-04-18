@@ -9,6 +9,7 @@ COMMON_APPS = [
     'django.contrib.staticfiles',
     'users',
     'rest_framework',
+    'rest_framework_swagger',
     'corsheaders',
 ]  # Apps we want on the public schema and other schemas too
 
@@ -16,7 +17,6 @@ SHARED_APPS = [
     'tenant_schemas',
     'clients',
     'hasura',
-    'rest_framework_docs',
     *COMMON_APPS
 ]  # Just to make sure I remember what I'm doing in the next 2hrs, lol. These apps are synced to the public schema ONLY
 
