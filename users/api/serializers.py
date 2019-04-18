@@ -6,8 +6,8 @@ from users.models import UserProxy as User
 
 class UserSerializer(serializers.ModelSerializer):
     confirm_password = serializers.CharField(write_only=True)
-    full_name = serializers.CharField(source='get_full_name')
-    client = TenantSerializer()
+    full_name = serializers.CharField(read_only=True, source='get_full_name')
+    client = TenantSerializer(read_only=True)
 
     class Meta:
         model = User
