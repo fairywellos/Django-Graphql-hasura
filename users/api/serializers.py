@@ -1,9 +1,13 @@
 from rest_framework import serializers
+
+from clients.api.serializers import TenantSerializer
 from users.models import UserProxy as User
 
 
 class UserSerializer(serializers.ModelSerializer):
     confirm_password = serializers.CharField(write_only=True)
+    full_name = serializers.CharField(source='get_full_name')
+    client = TenantSerializer()
 
     class Meta:
         model = User
@@ -15,6 +19,9 @@ class UserSerializer(serializers.ModelSerializer):
             'password',
             'confirm_password',
             'email',
+            'date_joined',
+            'full_name',
+            'client'
         )
         extra_kwargs = {
             'password': {
@@ -38,4 +45,5 @@ class UserSerializer(serializers.ModelSerializer):
         return attrs
 
     def create(self, validated_data):
+        validated_data.pop('confirm_password')
         return User.objects.create_user(**validated_data, is_active=True)
