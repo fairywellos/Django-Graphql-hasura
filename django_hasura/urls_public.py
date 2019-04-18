@@ -11,6 +11,7 @@ api_patterns = [
 
 urlpatterns = [
     path('', HomePageView.as_view()),
+    path('docs/', include('rest_framework_docs.urls')),
     path('admin/', admin.site.urls),
     path('hasura/', include('hasura.urls')),
     path('api/v1/', include(api_patterns)),
