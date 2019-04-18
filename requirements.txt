@@ -17,4 +17,5 @@ Rx==1.6.1
 singledispatch==3.4.0.3
 six==1.12.0
 urllib3==1.24.1
+drfdocs==0.0.11
 -e git+http://github.com/damey2011/django-cloud-tasks.git#egg=django_cloud_tasks
