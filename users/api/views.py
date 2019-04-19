@@ -37,3 +37,19 @@ class UserViewSet(ModelViewSet):
             return Response({'domain_url': domain_url.replace(schema_name + '.', ''),
                              'subdomain': schema_name.replace(schema_name, '')}, status=200)
         return Response({'domain_url': domain_url, 'subdomain': schema_name}, status=200)
+
+    @action(methods=['GET'], detail=False, url_path='host-by-subdomain', permission_classes=[AllowAny])
+    def host_by_subdomain(self, request, **kwargs):
+        """Carries URL param 'subdomain'"""
+        subdomain = self.request.query_params.get('subdomain', get_public_schema_name())
+        if not subdomain:
+            subdomain = get_public_schema_name()
+        subdomain = get_object_or_404(Client, schema_name=subdomain)
+        domain_url = subdomain.domain_url
+        if request.META.get('SERVER_PORT') and str(request.META.get('SERVER_PORT')) not in ['80', '443']:
+            domain_url += ':' + request.META.get('SERVER_PORT')
+        if request.is_secure and 'localhost' not in request.get_host() and '127.0.0.1' not in request.get_host():
+            domain_url = 'https://' + domain_url
+        else:
+            domain_url = 'http://' + domain_url
+        return Response({'domain_url': domain_url})
