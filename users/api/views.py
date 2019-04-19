@@ -46,7 +46,8 @@ class UserViewSet(ModelViewSet):
             subdomain = get_public_schema_name()
         subdomain = get_object_or_404(Client, schema_name=subdomain)
         domain_url = subdomain.domain_url
-        if request.META.get('SERVER_PORT') and str(request.META.get('SERVER_PORT')) not in ['80', '443']:
+        if not settings.IS_GAE and request.META.get('SERVER_PORT') and str(request.META.get('SERVER_PORT')) not in \
+                ['80', '443']:
             domain_url += ':' + request.META.get('SERVER_PORT')
         if request.is_secure and 'localhost' not in request.get_host() and '127.0.0.1' not in request.get_host():
             domain_url = 'https://' + domain_url
