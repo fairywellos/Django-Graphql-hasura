@@ -8,6 +8,7 @@ from django_cloud_tasks import task, views
 from tenant_schemas.utils import tenant_context
 
 from clients.models import Client
+from clients.utils import generate_client_url
 from hasura.api.schema.tables import track
 from users.models import User
 
@@ -27,7 +28,7 @@ def create_tenant_task(request, user_id):
     try:
         tenant_sub_domain = user.username or user.first_name or user.last_name or id_generator()
         tenant = Client(name=user.get_full_name(), user=user,
-                        domain_url=f'{tenant_sub_domain}.{settings.MAIN_DOMAIN_URL}',
+                        domain_url=generate_client_url(tenant_sub_domain),
                         paid_until=None, on_trial=True, schema_name=tenant_sub_domain)
         tenant.save()
     except Exception as e:
