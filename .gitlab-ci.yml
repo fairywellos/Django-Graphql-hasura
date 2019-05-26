@@ -1,0 +1,31 @@
+stages:
+ - build
+ - deploy
+
+build:
+ stage: build
+ script:
+ - docker-compose build
+ tags:
+ - docker-test
+ - curl localhost:8000/api/v1/users/
+
+#deploy-containers:
+# stage: deploy
+# script:
+# - export DOCKER_HOST=tcp://192.x.x.x:2375
+# - docker-compose down
+# - docker-compose up -d
+# tags:
+# - docker-test
+#
+#
+#prod-deploy-containers:
+# stage: deploy
+# script:
+# - pwd && ls -l
+# - ./docker-compose-vps-down.sh
+# - ./docker-compose-vps-up.sh
+# when: manual
+# tags:
+# - docker-prod
