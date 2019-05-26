@@ -1,14 +1,17 @@
 stages:
  - build
+ - test
+ - release
  - deploy
 
 build:
  stage: build
  script:
  - docker-compose build
+ - curl localhost:8000/api/v1/users/
  tags:
  - docker-test
- - curl localhost:8000/api/v1/users/
+
 
 #deploy-containers:
 # stage: deploy
