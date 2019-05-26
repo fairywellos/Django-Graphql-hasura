@@ -9,9 +9,6 @@ build:
  script:
  - docker-compose build
  - curl localhost:8000/api/v1/users/
- tags:
- - docker-test
-
 
 #deploy-containers:
 # stage: deploy
