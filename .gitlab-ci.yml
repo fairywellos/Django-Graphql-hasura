@@ -21,12 +21,31 @@ stages:
  - release
  - deploy
 
-build:
- stage: build
- script:
- - docker-compose build
- - curl localhost:8000/api/v1/users/
-
+# build:
+#  stage: build
+#  script:
+#  - docker-compose build
+#  - curl localhost:8000/api/v1/users/
+ 
+ 
+release:
+  stage: release
+  image: docker:latest
+  only:
+    - "master"
+  services:
+    - docker:dind
+  variables:
+    DOCKER_DRIVER: "overlay"
+before_script:
+    - docker version
+    - "docker info"
+    - "docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY"
+  script:
+    - "docker build -t ${CI_REGISTRY}/${CI_PROJECT_PATH}:latest --pull ."
+    - "docker push ${CI_REGISTRY}/${CI_PROJECT_PATH}:latest"
+  after_script:
+    - "docker logout ${CI_REGISTRY}"
 #deploy-containers:
 # stage: deploy
 # script:
