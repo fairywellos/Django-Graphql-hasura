@@ -1,14 +1,20 @@
 image: docker:stable
+
 variables:
   DOCKER_HOST: tcp://docker:2375/
   DOCKER_DRIVER: overlay2
+
 services:
   - docker:dind
+
 before_script:
   - docker info
   - 'which ssh-agent || ( apk update && apk add openssh-client)'
   - eval $(ssh-agent -s)
   - apk add curl
+  - apk add py-pip
+  - apk add python-dev libffi-dev openssl-dev gcc libc-dev make
+  - pip install docker-compose
 
 stages:
  - build
@@ -18,8 +24,6 @@ stages:
 build:
  stage: build
  script:
- - curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
- - chmod +x /usr/local/bin/docker-compose
  - docker-compose build
  - curl localhost:8000/api/v1/users/
 
