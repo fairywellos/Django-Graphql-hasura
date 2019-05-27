@@ -8,6 +8,8 @@ services:
         expose:
           - "8000"
         command: gunicorn django_hasura.wsgi -b 0.0.0.0:8000
+        networks:
+         - tickethub_net
 
     db:
         build: ./postgres
@@ -21,6 +23,8 @@ services:
             POSTGRES_DB: django-saas
         volumes:
             - pgdata:/var/lib/postgresql/data/  # persist container's db data to local pgdata/ (mounted)
+        networks:
+         - tickethub_net
     nginx:
         restart: always
         build: ./nginx/
@@ -28,6 +32,8 @@ services:
           - "8000:80"
         links:
           - web
+        networks:
+         - tickethub_net
     hasura:
         restart: always
         image: hasura/graphql-engine:latest@sha256:287f1083940be62ec487c32e463d74714f39eaa198453983f291b9c2bfec24ec
@@ -39,6 +45,14 @@ services:
             # HASURA_GRAPHQL_ACCESS_KEY: "${HASURA_SAAS_ACCESS_KEY}"
         ports:
             - "8080:8080"
+        networks:
+            - tickethub_net
+
 volumes:
   pgdata:
+
+networks:
+  tickethub_net:
+    external:
+      name: tickethub_net
 
