@@ -1,0 +1,21 @@
+image: docker:latest
+
+services:
+  - docker:dind
+
+stages:
+  - build
+  - test
+
+build:
+  stage: build
+  script:
+    - docker login registry.gitlab.com
+    - docker-compose build -t registry.gitlab.com/sejuba1/django-saas-backoffice .
+    - docker-compose push registry.gitlab.com/sejuba1/django-saas-backoffice
+
+test:admin:
+  stage: test
+  script:
+    - echo "testing"
+    
