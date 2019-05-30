@@ -18,6 +18,7 @@ before_script:
 build_image:
   stage: build_image
   script:
+    - docker network create tickethub_net
     - docker-compose up --build
   
     # - docker login registry.gitlab.com
