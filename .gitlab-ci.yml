@@ -19,7 +19,7 @@ build_image:
   stage: build_image
   script:
     - docker network create tickethub_net
-    - docker-compose up --build
+    - docker-compose build
   
     # - docker login registry.gitlab.com
     # - docker-compose build -t registry.gitlab.com/sejuba1/django-saas-backoffice .
