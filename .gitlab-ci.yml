@@ -24,8 +24,8 @@ build_image:
     - docker network create tickethub_net
     # - docker-compose build -t registry.gitlab.com/sejuba1/django-saas-backoffice .
     # - docker-compose push registry.gitlab.com/sejuba1/django-saas-backoffice
-    - docker build -t $CI_REGISTRY/group/project/image:latest .
-    - docker push $CI_REGISTRY/group/project/image:latest
+    - docker build -t $CI_REGISTRY/sejuba1/django-saas-backoffice/image:latest .
+    - docker push $CI_REGISTRY/sejuba1/django-saas-backoffice/image:latest
 
     # - docker-compose pull $CI_REGISTRY_IMAGE:latest || true
     # - docker-compose build --cache-from $CI_REGISTRY_IMAGE:latest --tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA --tag $CI_REGISTRY_IMAGE:latest .
