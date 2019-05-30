@@ -2,7 +2,9 @@ image: docker:latest
 
 services:
   - docker:dind
-
+variables:
+  DOCKER_HOST: tcp://docker:2375
+  DOCKER_DRIVER: overlay2
 stages:
   - build_image
 
@@ -14,17 +16,16 @@ before_script:
    - apk add py-pip
    - apk add python-dev libffi-dev openssl-dev gcc libc-dev make
    - pip install docker-compose
+   - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com
 
 build_image:
   stage: build_image
   script:
-    - docker network create tickethub_net
-    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com
-    
-    # - docker-compose build
-    # - docker login registry.gitlab.com
+    # - docker network create tickethub_net
     # - docker-compose build -t registry.gitlab.com/sejuba1/django-saas-backoffice .
     # - docker-compose push registry.gitlab.com/sejuba1/django-saas-backoffice
-
-
-    
+    - docker-compose pull $CI_REGISTRY_IMAGE:latest || true
+    - docker-compose build --cache-from $CI_REGISTRY_IMAGE:latest --tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA --tag $CI_REGISTRY_IMAGE:latest .
+    - docker-compose push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
+    - docker-compose push $CI_REGISTRY_IMAGE:latest
+        
