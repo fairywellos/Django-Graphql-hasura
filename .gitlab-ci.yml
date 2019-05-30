@@ -21,11 +21,10 @@ before_script:
 build_image:
   stage: build_image
   script:
-    # - docker network create tickethub_net
-    # - docker-compose build -t registry.gitlab.com/sejuba1/django-saas-backoffice .
-    # - docker-compose push registry.gitlab.com/sejuba1/django-saas-backoffice
-    - docker-compose build -t $CI_REGISTRY_IMAGE .
-    - docker-compose push $CI_REGISTRY_IMAGE
+    - docker network create tickethub_net
+    - docker-compose build -t registry.gitlab.com/sejuba1/django-saas-backoffice .
+    - docker-compose push registry.gitlab.com/sejuba1/django-saas-backoffice
+
     # - docker-compose pull $CI_REGISTRY_IMAGE:latest || true
     # - docker-compose build --cache-from $CI_REGISTRY_IMAGE:latest --tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA --tag $CI_REGISTRY_IMAGE:latest .
     # - docker-compose push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
