@@ -36,8 +36,8 @@ build_image:
 image: sejuba1/django-saas-backoffice/image:latest
 Deploy:
  stage: deploy
- only:
-    - 'master'
+#  only:
+#     - 'master'
 
  before_script:
  #Create .ssh directory
