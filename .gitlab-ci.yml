@@ -16,6 +16,14 @@ before_script:
    - apk add curl
    - apk add py-pip
    - apk add python-dev libffi-dev openssl-dev gcc libc-dev make
+    #Create .ssh directory
+   - mkdir -p ~/.ssh
+    #Save the SSH private key
+   - echo “$SSH_PRIVATE_KEY” > ~/.ssh/id_rsa
+   - chmod 700 ~/.ssh
+   - chmod 600 ~/.ssh/id_rsa
+   - eval $(ssh-agent -s)
+   - ssh-add ~/.ssh/id_rsa
    - pip install docker-compose
    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com
 
@@ -33,21 +41,12 @@ build_image:
     # - docker-compose push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
     # - docker-compose push $CI_REGISTRY_IMAGE:latest
 
-image: $CI_REGISTRY/sejuba1/django-saas-backoffice/image:latest
+# image: $CI_REGISTRY/sejuba1/django-saas-backoffice/image:latest
 Deploy:
  stage: deploy
 #  only:
 #     - 'master'
 
- before_script:
- #Create .ssh directory
-    - mkdir -p ~/.ssh
- #Save the SSH private key
-    - echo “$SSH_PRIVATE_KEY” > ~/.ssh/id_rsa
-    - chmod 700 ~/.ssh
-    - chmod 600 ~/.ssh/id_rsa
-    - eval $(ssh-agent -s)
-    - ssh-add ~/.ssh/id_rsa
  script:
     - ssh $ORGHUB_TEST_USER@$ORGHUB_TEST_SERVER
     - pwd
