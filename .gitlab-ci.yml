@@ -34,7 +34,7 @@ build_image:
     # - docker-compose push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
     # - docker-compose push $CI_REGISTRY_IMAGE:latest
 
-image: sejuba1/django-saas-backoffice/image:latest
+image: $CI_REGISTRY/sejuba1/django-saas-backoffice/image:latest
 Deploy:
  stage: deploy
 #  only:
