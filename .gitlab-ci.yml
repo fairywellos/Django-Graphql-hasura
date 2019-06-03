@@ -7,6 +7,7 @@ variables:
   DOCKER_DRIVER: overlay2
 stages:
   - build_image
+  - deploy
 
 before_script:
    - docker info
@@ -31,4 +32,26 @@ build_image:
     # - docker-compose build --cache-from $CI_REGISTRY_IMAGE:latest --tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA --tag $CI_REGISTRY_IMAGE:latest .
     # - docker-compose push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
     # - docker-compose push $CI_REGISTRY_IMAGE:latest
+
+image: sejuba1/django-saas-backoffice/image:latest
+Deploy:
+ stage: deploy
+ only:
+    - 'master'
+
+ before_script:
+ #Create .ssh directory
+    - mkdir -p ~/.ssh
+ #Save the SSH private key
+    - echo “$SSH_PRIVATE_KEY” > ~/.ssh/id_rsa
+    - chmod 700 ~/.ssh
+    - chmod 600 ~/.ssh/id_rsa
+    - eval $(ssh-agent -s)
+    - ssh-add ~/.ssh/id_rsa
+ script:
+    - ssh $ORGHUB_TEST_USER@$ORGHUB_TEST_SERVER
+    - pwd
+    - rm -f ~/.ssh/id_rsa
+    - 'echo Deploy done: $(date “+%F %H:%M:%S”)'
+    
         
