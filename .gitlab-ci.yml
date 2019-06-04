@@ -19,7 +19,7 @@ before_script:
     #Create .ssh directory
    - mkdir -p ~/.ssh
     #Save the SSH private key
-   - echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
+   - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
    - chmod 700 ~/.ssh
    - chmod 600 ~/.ssh/id_rsa
    - eval "$(ssh-agent -s)"
