@@ -37,7 +37,15 @@ staging:
   - echo "$ORGHUB_TEST_SERVER"
   - ssh "$ORGHUB_TEST_USER"@"$ORGHUB_TEST_SERVER"
 
-
+production:
+  type: deploy
+  script:
+  - echo "$ORGHUB_TEST_SERVER"
+  - ssh "$ORGHUB_TEST_USER"@"$ORGHUB_TEST_SERVER"
+  only:
+   - 'master'
+  when: manual
+  
 # image: docker:stable
 # variables:
 #   DOCKER_HOST: tcp://docker:2375/
