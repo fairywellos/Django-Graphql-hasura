@@ -32,16 +32,7 @@ build_image:
 staging:
   type: deploy
   script:
-  - set -o
-  - ssh deploy@35.234.69.94 'cat /etc/os-release'
-  - export tag="eu.gcr.io/tertest/pythonapp:$(date '+%H-%M-%S-%d-%m-%Y')""${CI_COMMIT_SHA}"
-  - echo "$tag"
-  - echo "$VAR_CRE" | base64 -d > key.json
-  - docker login -u _json_key -p "$(cat key.json)" https://eu.gcr.io
-  - docker build -t "$tag" .
-  - docker push "$tag"
-  - ssh $ORGHUB_TEST_USER@ORGHUB_TEST_SERVER 
-  - pwd
+  - ssh $ORGHUB_TEST_USER@ORGHUB_TEST_SERVER 'pwd'
 
 
 # image: docker:stable
