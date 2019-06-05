@@ -29,19 +29,19 @@ build_image:
    - docker build -t $CI_REGISTRY/sejuba1/django-saas-backoffice/image:latest .
    - docker push $CI_REGISTRY/sejuba1/django-saas-backoffice/image:latest
     
-# staging:
-#   type: deploy
-#   script:
-#   - set -o
-#   - ssh deploy@35.234.69.94 'cat /etc/os-release'
-#   - export tag="eu.gcr.io/tertest/pythonapp:$(date '+%H-%M-%S-%d-%m-%Y')""${CI_COMMIT_SHA}"
-#   - echo "$tag"
-#   - echo "$VAR_CRE" | base64 -d > key.json
-#   - docker login -u _json_key -p "$(cat key.json)" https://eu.gcr.io
-#   - docker build -t "$tag" .
-#   - docker push "$tag"
-#   - ssh deploy@35.234.69.94 'gcloud auth configure-docker'
-#   - ssh deploy@35.234.69.94 'sudo bash /home/chris/tickethub/tickethub_saas/nomad/deploy.sh' "$tag"
+staging:
+  type: deploy
+  script:
+  - set -o
+  - ssh deploy@35.234.69.94 'cat /etc/os-release'
+  - export tag="eu.gcr.io/tertest/pythonapp:$(date '+%H-%M-%S-%d-%m-%Y')""${CI_COMMIT_SHA}"
+  - echo "$tag"
+  - echo "$VAR_CRE" | base64 -d > key.json
+  - docker login -u _json_key -p "$(cat key.json)" https://eu.gcr.io
+  - docker build -t "$tag" .
+  - docker push "$tag"
+  - ssh $ORGHUB_TEST_USER@ORGHUB_TEST_SERVER 
+  - pwd
 
 
 # image: docker:stable
