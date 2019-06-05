@@ -1,4 +1,7 @@
 image: docker:stable
+stages:
+  - build_image
+  - deploy
 variables:
   DOCKER_HOST: tcp://docker:2375/
   DOCKER_DRIVER: overlay2
@@ -22,9 +25,9 @@ before_script:
 build_image:
   stage: build_image
   script:
-    - docker network create tickethub_net
-    - docker build -t $CI_REGISTRY/sejuba1/django-saas-backoffice/image:latest .
-    - docker push $CI_REGISTRY/sejuba1/django-saas-backoffice/image:latest
+   - docker network create tickethub_net
+   - docker build -t $CI_REGISTRY/sejuba1/django-saas-backoffice/image:latest .
+   - docker push $CI_REGISTRY/sejuba1/django-saas-backoffice/image:latest
     
 # staging:
 #   type: deploy
@@ -86,6 +89,6 @@ build_image:
 #     - ssh $ORGHUB_TEST_USER@$ORGHUB_TEST_SERVER
 #     - pwd
 #     - rm -f ~/.ssh/id_rsa
-    - 'echo Deploy done: $(date “+%F %H:%M:%S”)'
+    # - 'echo Deploy done: $(date “+%F %H:%M:%S”)'
     
         
