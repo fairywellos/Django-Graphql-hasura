@@ -33,7 +33,7 @@ staging:
   type: deploy
   script:
   - echo "$ORGHUB_TEST_SERVER"
-#   - ssh -i $ORGHUB_TEST_USER@$ORGHUB_TEST_SERVER
+  - ssh -i "$ORGHUB_TEST_USER"@"$ORGHUB_TEST_SERVER" 'pwd'
 
 
 # image: docker:stable
