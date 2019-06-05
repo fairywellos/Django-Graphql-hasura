@@ -32,7 +32,7 @@ build_image:
 staging:
   type: deploy
   script:
-  - ssh $ORGHUB_TEST_USER@ORGHUB_TEST_SERVER 'pwd'
+  - ssh $ORGHUB_TEST_USER@$ORGHUB_TEST_SERVER pwd
 
 
 # image: docker:stable
