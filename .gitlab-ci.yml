@@ -22,7 +22,7 @@ before_script:
   - mkdir -p ~/.ssh
   - chmod 700 ~/.ssh
   - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com
-  - ssh-keygen -R $ORGHUB_TEST_SERVER
+  - ssh-keygen -R "$ORGHUB_TEST_SERVER"
 #   - echo "35.234.69.94 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBFh2TgeBiYT/DKSl5sJAhqOPYBgTr3bbxnhLFju9Z0jt22HPxVVuy+P7te/BGED9oWsf4SmC/5vVsXyjZVQaaF8=" >> ~/.ssh/known_hosts
 build_image:
   stage: build_image
