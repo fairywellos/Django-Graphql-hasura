@@ -41,7 +41,7 @@ production:
   type: deploy
   script:
   - echo "$ORGHUB_TEST_SERVER"
-  - ssh "$ORGHUB_TEST_USER"@"$ORGHUB_TEST_SERVER"
+  - ssh "$ORGHUB_TEST_USER"@"$ORGHUB_TEST_SERVER" 'cd /opt/django-saas-backoffice && pwd'
   only:
    - 'master'
   when: manual
