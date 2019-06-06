@@ -7,7 +7,6 @@ services:
           - db
         expose:
           - "8000"
-        command: python manage.py migrate_schemas --shared
         command: gunicorn django_hasura.wsgi -b 0.0.0.0:8000
         networks:
          - tickethub_net
