@@ -8,4 +8,6 @@ ADD requirements.txt /code/
 RUN pip install -r requirements.txt
 
 ADD ./ /code/
+RUN cd /code && python manage.py migrate_schemas --shared
+
 RUN echo "test"
