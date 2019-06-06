@@ -35,7 +35,7 @@ staging:
   type: deploy
   script:
   - DOCKER_COMPOSE_CLEAN="docker-compose down -v --rmi all --remove-orphans"
-  - ssh "$ORGHUB_TEST_USER"@"$ORGHUB_TEST_SERVER" 'cd /opt/django-saas-backoffice && sudo su && $DOCKER_COMPOSE_CLEAN'
+  - ssh "$ORGHUB_TEST_USER"@"$ORGHUB_TEST_SERVER" 'cd /opt/django-saas-backoffice && sudo su && ./staging_deploy.sh'
 
 # production:
 #   type: deploy
