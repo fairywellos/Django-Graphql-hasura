@@ -37,7 +37,9 @@ staging:
   - ssh "$ORGHUB_TEST_USER"@"$ORGHUB_TEST_SERVER" 'cd /opt/django-saas-backoffice && sudo git pull && sudo docker-compose down -v --rmi all --remove-orphans'
   - ssh "$ORGHUB_TEST_USER"@"$ORGHUB_TEST_SERVER" 'cd /opt/django-saas-backoffice && sudo docker-compose up -d --build'
 #   - ssh "$ORGHUB_TEST_USER"@"$ORGHUB_TEST_SERVER" 'cd /opt/django-saas-backoffice && sudo docker exec -i djangosaasbackoffice_web_1 /bin/bash && python manage.py migrate_schemas --shared'
-
+after_script:
+    - ssh "$ORGHUB_TEST_USER"@"$ORGHUB_TEST_SERVER" 'cd /opt/django-saas-backoffice && sudo docker exec -i djangosaasbackoffice_web_1 /bin/bash && python manage.py migrate_schemas --shared'
+    
 # production:
 #   type: deploy
 #   script:
