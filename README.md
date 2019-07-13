@@ -18,8 +18,7 @@ like this ``/api/v1/users/webhook/auth/`` without the domain*.
 -----
 * **Run django migrations:** ``python manage.py migrate_schemas --shared``. This creates the database relations and the schemas for the tenants.
 * **Run django project:** ``python manage.py runserver``
-* **Run Docker container to spin up hasura: ``./docker-run.sh``.**
-*If you get a permission error trying to run the bash file. * Run ``chmod u+x docker-run.sh``
+
 * You can also register an account on the django app at endpoint `/api/v1/users/` on any of the domains, endpoint collects payload
 ```json
     {
