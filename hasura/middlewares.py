@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 
 
 # These hostnames will be converted to "localhost"
-allowed_hosts = ['127.0.0.1']
+allowed_hosts = ['127.0.0.1', '10.0.3.2']
 
 
 class SAASMiddleware(DefaultTenantMiddleware):
