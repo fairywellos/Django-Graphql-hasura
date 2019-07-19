@@ -10,6 +10,7 @@ from tenant_schemas.utils import get_tenant_model, get_public_schema_name
 
 logger = logging.getLogger(__name__)
 
+
 # These hostnames will be converted to "localhost"
 allowed_hosts = ['127.0.0.1']
 
@@ -37,7 +38,7 @@ class SAASMiddleware(DefaultTenantMiddleware):
         super(SAASMiddleware, self).process_request(request)
         webhook_url = os.getenv('HASURA_SAAS_AUTH_WEBHOOK', '/hasura/webhook/auth/')
         if webhook_url and webhook_url in request.build_absolute_uri():
-            return self.process_hasura_webhook_auth(request) 
+            return self.process_hasura_webhook_auth(request)
 
     def get_tenant(self, model, hostname, request):
         try:

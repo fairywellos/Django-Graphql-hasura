@@ -204,5 +204,3 @@ DATABASES['default']['PASSWORD'] = os.getenv('HASURA_SAAS_PASSWORD', 'r1zEAflGfK
 DATABASES['default']['HOST'] = os.getenv('HASURA_SAAS_HOST', 'db')
 DATABASES['default']['PORT'] = os.getenv('HASURA_SAAS_PORT', '5432')
 
-
-
