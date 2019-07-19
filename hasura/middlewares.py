@@ -11,6 +11,10 @@ from tenant_schemas.utils import get_tenant_model, get_public_schema_name
 logger = logging.getLogger(__name__)
 
 
+# These hostnames will be converted to "localhost"
+allowed_hosts = ['127.0.0.1']
+
+
 class SAASMiddleware(DefaultTenantMiddleware):
     """
     In the case of authentication from hasura where you need to specifically declare only one endpoint for auth,
@@ -40,6 +44,10 @@ class SAASMiddleware(DefaultTenantMiddleware):
         try:
             """In case we are running in a docker container within same machine"""
             hostname = hostname.replace('host.docker.internal', 'localhost')
+            print('\n\n\nMy Hostname is \n\n\n', hostname, '\n\n\n')
+            if any(allowed_host in hostname for allowed_host in allowed_hosts):
+                hostname = 'localhost'
+
             return super(DefaultTenantMiddleware, self).get_tenant(model, hostname, request)
         except model.DoesNotExist:
             raise Http404('Sub-domain requested does not exist')
