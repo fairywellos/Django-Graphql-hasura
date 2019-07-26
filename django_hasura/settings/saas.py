@@ -7,6 +7,7 @@ COMMON_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_global_request',
     'users',
     'rest_framework',
     'rest_framework_swagger',

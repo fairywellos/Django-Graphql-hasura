@@ -11,12 +11,15 @@ from clients.models import Client
 from clients.utils import generate_client_url
 from hasura.api.schema.tables import track
 from users.models import User
+from django_global_request.middleware import get_request
 
 logger = logging.getLogger(__name__)
 
 
 @task(queue=settings.DEFAULT_TASK_QUEUE)
 def create_tenant_task(request, user_id):
+    request = get_request()
+    main_domain = request.META['HTTP_HOST']
     user = User.objects.get(pk=user_id)
     from clients.models import Client
 
@@ -28,7 +31,7 @@ def create_tenant_task(request, user_id):
     try:
         tenant_sub_domain = user.username or user.first_name or user.last_name or id_generator()
         tenant = Client(name=user.get_full_name(), user=user,
-                        domain_url=generate_client_url(tenant_sub_domain),
+                        domain_url=generate_client_url(main_domain,tenant_sub_domain),
                         paid_until=None, on_trial=True, schema_name=tenant_sub_domain)
         tenant.save()
     except Exception as e:
