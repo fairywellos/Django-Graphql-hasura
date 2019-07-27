@@ -202,6 +202,6 @@ os.environ.setdefault("GOOGLE_APPLICATION_CREDENTIALS", GOOGLE_APPLICATION_CREDE
 DATABASES['default']['NAME'] = os.getenv('HASURA_SAAS_DATABASE', 'django-saas')
 DATABASES['default']['USER'] = os.getenv('HASURA_SAAS_USER', 'django-saas')
 DATABASES['default']['PASSWORD'] = os.getenv('HASURA_SAAS_PASSWORD', 'r1zEAflGfKLl1Fb3')
-DATABASES['default']['HOST'] = os.getenv('HASURA_SAAS_HOST', 'db')
+DATABASES['default']['HOST'] = os.getenv('HASURA_SAAS_HOST', 'localhost')
 DATABASES['default']['PORT'] = os.getenv('HASURA_SAAS_PORT', '5432')
 
