@@ -1,3 +1,4 @@
+gunicorn
 aniso8601==3.0.2
 cachetools==3.1.1
 certifi==2019.3.9
@@ -37,3 +38,5 @@ singledispatch==3.4.0.3
 six==1.12.0
 uritemplate==3.0.0
 urllib3==1.24.1
+django-rest-swagger==2.2.0
+-e git+http://github.com/damey2011/django-cloud-tasks.git#egg=django_cloud_tasks

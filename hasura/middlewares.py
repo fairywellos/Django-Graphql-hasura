@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 
 
 # These hostnames will be converted to "localhost"
-allowed_hosts = ['127.0.0.1', '10.0.3.2', '35.238.147.161', '.senseandserve.com', 'orghub.senseandserve.com']
+allowed_hosts = ['127.0.0.1', '10.128.0.14', '35.222.155.132', '.senseandserve.com', 'http://orghub.senseandserve.com']
 
 
 class SAASMiddleware(DefaultTenantMiddleware):
