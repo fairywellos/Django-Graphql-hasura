@@ -24,7 +24,7 @@ env_variables:
   HASURA_SAAS_PASSWORD: 'r1zEAflGfKLl1Fb3'
   HASURA_SAAS_PORT: '5432'
 
-  HASURA_URL: 'http://35.200.242.129'
+  HASURA_URL: 'http://35.222.155.132'
   HASURA_SAAS_ACCESS_KEY: 'mybigsecret'
 
   MAIN_DOMAIN_URL: 'django-saas-237719.appspot.com'

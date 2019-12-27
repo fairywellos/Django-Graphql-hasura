@@ -31,7 +31,7 @@ def create_tenant_task(request, user_id):
     try:
         tenant_sub_domain = user.username or user.first_name or user.last_name or id_generator()
         tenant = Client(name=user.get_full_name(), user=user,
-                        domain_url=generate_client_url(main_domain,tenant_sub_domain),
+                        domain_url=generate_client_url(tenant_sub_domain),
                         paid_until=None, on_trial=True, schema_name=tenant_sub_domain)
         tenant.save()
     except Exception as e:
