@@ -84,6 +84,7 @@ DATABASES = {
     }
 }
 
+
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
 
@@ -199,9 +200,17 @@ GOOGLE_APPLICATION_CREDENTIALS = os.path.join(BASE_DIR, 'django-saas-237719-de4b
 os.environ.setdefault("GOOGLE_APPLICATION_CREDENTIALS", GOOGLE_APPLICATION_CREDENTIALS)
 
 
+# DATABASES['default']['NAME'] = os.getenv('HASURA_SAAS_DATABASE', 'django')
+# DATABASES['default']['USER'] = os.getenv('HASURA_SAAS_USER', 'django')
+# DATABASES['default']['PASSWORD'] = os.getenv('HASURA_SAAS_PASSWORD', '123')
+# DATABASES['default']['HOST'] = os.getenv('HASURA_SAAS_HOST', 'localhost')
+# DATABASES['default']['PORT'] = os.getenv('HASURA_SAAS_PORT', '5432')
+
 DATABASES['default']['NAME'] = os.getenv('HASURA_SAAS_DATABASE', 'django-saas')
 DATABASES['default']['USER'] = os.getenv('HASURA_SAAS_USER', 'django-saas')
 DATABASES['default']['PASSWORD'] = os.getenv('HASURA_SAAS_PASSWORD', 'r1zEAflGfKLl1Fb3')
 DATABASES['default']['HOST'] = os.getenv('HASURA_SAAS_HOST', 'localhost')
 DATABASES['default']['PORT'] = os.getenv('HASURA_SAAS_PORT', '5432')
+
+
 
