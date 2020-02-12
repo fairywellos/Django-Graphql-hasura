@@ -5,7 +5,7 @@ certifi==2019.3.9
 chardet==3.0.4
 coreapi==2.3.3
 coreschema==0.0.4
-Django==2.1.5
+Django==2.2.10
 -e git+http://github.com/damey2011/django-cloud-tasks.git@0caa1e771886eb2e827cb3552fb679e15352b62e#egg=django_cloud_tasks
 django-cors-headers==2.5.0
 django-middleware-global-request==0.1.2
